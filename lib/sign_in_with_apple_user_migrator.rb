@@ -1,0 +1,9 @@
+require_relative 'sign_in_with_apple_user_migrator/access_token_generator'
+require_relative 'sign_in_with_apple_user_migrator/cli'
+require_relative 'sign_in_with_apple_user_migrator/client_secret_generator'
+require_relative 'sign_in_with_apple_user_migrator/transfer_id_exchanger'
+require_relative 'sign_in_with_apple_user_migrator/transfer_id_generator'
+require_relative 'sign_in_with_apple_user_migrator/version'
+
+module SignInWithAppleUserMigrator
+end
