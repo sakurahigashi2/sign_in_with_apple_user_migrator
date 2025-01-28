@@ -19,13 +19,9 @@ RSpec.describe SignInWithAppleUserMigrator::CLI do
       allow(CSV).to receive(:open)
       allow(File).to receive(:read).with(private_key_path).and_return(private_key_content)
 
-      allow_any_instance_of(SignInWithAppleUserMigrator::ClientSecretGenerator)
-        .to receive(:generate_client_secret)
-        .and_return(client_secret)
-
-      allow_any_instance_of(SignInWithAppleUserMigrator::AccessTokenGenerator)
-        .to receive(:get_access_token)
-        .and_return(access_token)
+      allow_any_instance_of(SignInWithAppleUserMigrator::TokenManager)
+        .to receive(:ensure_valid_token)
+        .and_return([client_secret, access_token])
     end
 
     it 'creates required directories and files' do
@@ -62,7 +58,7 @@ RSpec.describe SignInWithAppleUserMigrator::CLI do
 
       cli.options = Thor::CoreExt::HashWithIndifferentAccess.new(options)
 
-      expect(SignInWithAppleUserMigrator::ClientSecretGenerator)
+      expect(SignInWithAppleUserMigrator::TokenManager)
         .to receive(:new)
         .with(
           client_id: client_id,
@@ -71,23 +67,6 @@ RSpec.describe SignInWithAppleUserMigrator::CLI do
           team_id: team_id
         )
         .and_call_original
-
-      expect(SignInWithAppleUserMigrator::AccessTokenGenerator)
-        .to receive(:new)
-        .with(
-          client_id: client_id,
-          client_secret: client_secret
-        )
-        .and_call_original
-
-      expect(SignInWithAppleUserMigrator::TransferIdGenerator)
-        .to receive(:new)
-        .with(
-          client_id: client_id,
-          client_secret: client_secret,
-          access_token: access_token,
-          target_team_id: target_team_id
-        )
 
       cli.generate_user_transfer_ids
     end
@@ -102,13 +81,9 @@ RSpec.describe SignInWithAppleUserMigrator::CLI do
       allow(CSV).to receive(:open)
       allow(File).to receive(:read).with(private_key_path).and_return(private_key_content)
 
-      allow_any_instance_of(SignInWithAppleUserMigrator::ClientSecretGenerator)
-        .to receive(:generate_client_secret)
-        .and_return(client_secret)
-
-      allow_any_instance_of(SignInWithAppleUserMigrator::AccessTokenGenerator)
-        .to receive(:get_access_token)
-        .and_return(access_token)
+      allow_any_instance_of(SignInWithAppleUserMigrator::TokenManager)
+        .to receive(:ensure_valid_token)
+        .and_return([client_secret, access_token])
     end
 
     it 'creates required directories and files' do
@@ -143,7 +118,7 @@ RSpec.describe SignInWithAppleUserMigrator::CLI do
 
       cli.options = Thor::CoreExt::HashWithIndifferentAccess.new(options)
 
-      expect(SignInWithAppleUserMigrator::ClientSecretGenerator)
+      expect(SignInWithAppleUserMigrator::TokenManager)
         .to receive(:new)
         .with(
           client_id: client_id,
@@ -152,22 +127,6 @@ RSpec.describe SignInWithAppleUserMigrator::CLI do
           team_id: team_id
         )
         .and_call_original
-
-      expect(SignInWithAppleUserMigrator::AccessTokenGenerator)
-        .to receive(:new)
-        .with(
-          client_id: client_id,
-          client_secret: client_secret
-        )
-        .and_call_original
-
-      expect(SignInWithAppleUserMigrator::TransferIdExchanger)
-        .to receive(:new)
-        .with(
-          client_id: client_id,
-          client_secret: client_secret,
-          access_token: access_token
-        )
 
       cli.migrate_user_transfer_ids
     end
