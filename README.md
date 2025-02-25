@@ -92,9 +92,9 @@ bundle exec ruby bin/sign_in_with_apple_user_migrator migrate_user_transfer_ids 
 | Option | Description | Example |
 |--------|-------------|---------|
 | client_id | Application bundle ID | jp.co.example.app |
-| key_id | Key ID created in Apple Developer Portal | XXXXXXXXXX |
+| key_id | Key ID created in destination Apple Developer Portal | XXXXXXXXXX |
 | private_key_path | Private key (.p8) file path for Sign in with Apple | ./AuthKey.p8 |
-| team_id | Source Apple Developer Team ID | XXXXXXXXXX |
+| team_id | Destination Apple Developer Team ID | XXXXXXXXXX |
 | transfer_id_csv_path | CSV file path containing list of transfer IDs to be migrated | ./transfer_id_csv_path.csv |
 
 Note: Make sure to use the destination team's information.
