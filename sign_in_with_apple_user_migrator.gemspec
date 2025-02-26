@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "sign_in_with_apple_user_migrator"
-  spec.version       = "1.0.0"
+  spec.version       = "1.0.1"
   spec.authors       = ["sakurahigashi2"]
   spec.email         = ["joh.murata@gmail.com"]
 
